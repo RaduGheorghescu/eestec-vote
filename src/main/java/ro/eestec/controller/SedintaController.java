@@ -1,0 +1,37 @@
+package ro.eestec.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import ro.eestec.model.Sedinta;
+import ro.eestec.repository.SedintaRepository;
+
+/**
+ * Created by radug on 6/9/2017.
+ */
+@Controller
+@RequestMapping("/sedinta")
+public class SedintaController {
+
+    @Autowired
+    private SedintaRepository sedintaRepository;
+
+    @GetMapping("/addSedinta")
+    public String addSedinta(Model model){
+        model.addAttribute("sedinta", new Sedinta());
+        return "addSedinta";
+    }
+    @PostMapping("/addSedinta")
+    public String addSedinta(){
+        return "redirect:/sedinta/list";
+    }
+
+    @GetMapping("/list")
+    public String listaSedinta(Model model){
+        model.addAttribute("listaSedinta", sedintaRepository.findAll());
+        return "listaSedinta";
+    }
+}
